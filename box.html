@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="./resource/css/bootstrap.css">
+    <style type="text/css">
+        #home{
+            width:600px;
+            height:600px;
+            /*border:1px solid #9bdf70;*/
+            background:#f0fbeb;
+            /*margin:auto;*/
+        }
+        .node{
+            width:20px;
+            height:20px;
+            background:blue;
+            /*border:1px solid #9bdf50;*/
+        }
+        #food{
+            width:20px;
+            height:20px;
+            background:#708090;
+            /*border:1px solid #9bdf50;*/
+        }
+    </style>
+    </head>
+    <body>
+        <div id="home" style="">
+            <!-- <div id="node"></div> -->
+        </div>
+    </body>
+</html>
+<script type="text/javascript" src="./resource/js/jquery.js"></script>
+<script type="text/javascript">
+    /*全局变量 配置区*/
+    MOVESIZE = 20; /*单次移动距离*/
+
+
+
+
+    /*全局变量 申明区*/
+    food_location_top = food_location_left = 0;
+
+    node_location_top = node_location_left = 0;
+
+    // node_arr = []; /*节点容器  保存所有的节点*/
+
+
+
+    /*全局变量 对象区*/
+    home_obj = $("#home");
+    node_obj = $("#node");
+    food_obj = $("#food");
+    uid = null;
+
+    init();
+
+    /*初始化函数*/
+    function init(){
+        // createFood();
+        // createNode();
+        listenWS();
+    }
+
+    /* 发起websocket连接 */
+    function listenWS()
+    {
+        var webSocketAddr = 'ws://120.27.117.52:8282';
+        webSocket         = new WebSocket(webSocketAddr);
+        webSocket.onopen  = function(evt){
+            /*发送客户端坐标*/
+            // webSocket.send('{"model":"food","param":{"action":"clientLocation","top":' + node_location_top + ',"left":'+ node_location_left +'}}');
+            webSocket.send('{"action":"login","param":{}}');
+            // webSocket.send('{"action":"createFoo","param":{}}');
+            // webSocket.send('{"action":"createNode","param":{}}');
+        };
+
+        /*关闭连接区*/
+        webSocket.onclose = function(evt){
+
+        };
+
+
+        /*接收消息区*/
+        webSocket.onmessage = function(evt){
+            // console.debug(evt.data);
+            receiveMessage(evt.data);
+        };
+
+        /*错误区*/
+        webSocket.onerror = function(evt){
+            // console.debug('connect fail error message is -> '+evt.data);
+
+        };
+    }
+
+    /*接收消息 业务逻辑处理*/
+    function receiveMessage(data){
+        var message_obj = $.parseJSON(data);
+        var obj_action  = message_obj.action;
+        switch(obj_action)
+        {
+            case "newlogin":
+                newlogin(message_obj.params);
+            case 'login':
+                login(message_obj);
+                break;
+            case 'createFoo':
+                createFood(message_obj.params);
+                break;
+            case 'createNode':
+                createNode(message_obj);
+                break;
+            case 'updateBox':
+                updateBox(message_obj.params);
+                break;
+
+            case 'logout':
+                logout(message_obj.params);
+                break;
+            case 'moveNode':
+                moveNode(message_obj);
+                break;
+            default:
+                console.debug('未知消息');
+                console.debug(data);
+            break;
+        }
+    }
+
+
+
+
+
+
+
+
+
+    // /* 初次登陆保存uid */
+    function login(msgObj){
+        uid = msgObj.id;
+        webSocket.send('{"action":"createNode","param":{}}');
+        return false;
+
+        console.debug(msgObj);
+        var userId = msgObj.id;
+        var left = msgObj.params.left + home_obj.offset().left -20;
+        var top = msgObj.params.top;
+        console.debug($("#"+userId).length);
+        if ( $("#"+userId).length == 0 ) {
+            home_obj.append('<div id="' + userId + '" class="node"></div>');
+        }
+        $("#"+userId).offset({top:top,left:left});
+        // home_obj.append('<div id="food" class=""></div>');
+
+    }
+
+    /* 有用户退出删除其node */
+    function logout(userId){
+        var logoutUid = userId.uid;
+        var logoutNode = $('#' + logoutUid);
+        logoutNode && logoutNode.remove();
+    }
+
+    /* 在地图上随机生成box */
+    function createFood(food){
+        // food_location_top  = Math.floor(Math.random() * 10) * 60;
+        // food_location_left = Math.floor(Math.random() * 10) * 60 + home_obj.offset().left;
+        food_location_top  = food.top;
+        food_location_left = food.left + home_obj.offset().left;
+        food_obj && food_obj.remove();
+        home_obj.append('<div id="food" class=""></div>');
+        food_obj = $("#food");
+        food_obj.offset({top:food_location_top,left:food_location_left});
+    }
+
+    /* 在地图更新生成box */
+    function updateBox(food){
+        // food_location_top  = Math.floor(Math.random() * 10) * 60;
+        // food_location_left = Math.floor(Math.random() * 10) * 60 + home_obj.offset().left;
+        food_location_top  = food.top;
+        food_location_left = food.left + home_obj.offset().left;
+        food_obj && food_obj.remove();
+        home_obj.append('<div id="food" ></div>');
+        food_obj = $("#food");
+        food_obj.offset({top:food_location_top,left:food_location_left});
+    }
+
+    /*在地图上随机生成节点*/
+    function createNode(msgObj){
+        var userId = msgObj.id;
+        var left = msgObj.params.left;
+        var top = msgObj.params.top;
+        if ( $("#"+userId).length == 0 ) {
+            home_obj.append('<div id="' + userId + '" class="node"></div>');
+        }
+        $("#"+userId).offset({top:top,left:left});
+        node_obj = $('#'+uid);
+        return ;
+
+
+        node_location_top  = node.top;
+        node_location_left = node.left + home_obj.offset().left;
+        var sn = node.SN;
+        // node_obj && node_obj.remove();
+        home_obj.append('<div id="' + sn + '" class="node"></div>');
+        node_obj = $("#node");
+        node_obj.offset({top:node_location_top,left:node_location_left});
+        /*更新全局对象变量*/
+        updateGlobalObj();
+    }
+
+    /*监听键盘按下事件*/
+    $(window).keydown(function(event){     /*↓:40 →:39 ↑:38 ←:37*/
+        var keyCode = [37,38,39,40];
+        var key = $.inArray(event.keyCode, keyCode);  //返回 3, 如果不包含在数组中,则返回 -1;
+        // alert(event.keyCode);
+        // if (key == -1) {alert(event.keyCode);return ;}
+
+        /*调用移动坐标函数*/
+        move_node(event.keyCode);
+
+        /*调用食物坐标重合函数*/
+        is_eat();
+
+        /*调用越界检查函数*/
+        is_out();
+    });
+
+    /*移动之后，判断是否越界*/
+    function is_out()
+    {
+        /*取得父窗口的top和left坐标值*/
+        home_location_top  = home_obj.offset().top;
+        home_location_left = home_obj.offset().left;
+        if (node_location_top < home_location_top || node_location_left < home_location_left ||
+            node_location_top >= (home_location_top + 600) || node_location_left >= (home_location_left + 600)) {
+            alert('不能移出边界');
+        }
+    }
+
+    /*移动之后，判断是否与食物坐标重合*/
+    function is_eat()
+    {
+        if(node_location_top == food_location_top && node_location_left == food_location_left){
+            // alert('chidao le');
+            var sendMsg = {};
+            sendMsg.action = "updateBox";
+            sendMsg.params = {};
+            sendMessage(sendMsg);
+        }
+    }
+
+    /*移动节点函数*/
+    function move_node(keyCode)
+    {
+        /*取得节点的top和left绝对坐标值*/
+        node_location_top  = node_obj.offset().top;
+        node_location_left = node_obj.offset().left;
+        switch(keyCode)
+        {
+            /*重置坐标值 移动*/
+            case 37:
+                /*向左移动*/
+                node_location_left = node_location_left - MOVESIZE;
+                node_obj.offset({top:node_location_top,left:node_location_left});
+            break;
+            case 38:
+                /*向上移动*/
+                node_location_top = node_location_top - MOVESIZE;
+                node_obj.offset({top:node_location_top,left:node_location_left});
+            break;
+            case 39:
+                /*向右移动*/
+                node_location_left = node_location_left + MOVESIZE;
+                node_obj.offset({top:node_location_top,left:node_location_left});
+            break;
+            case 40:
+                /*向下移动*/
+                node_location_top = node_location_top + MOVESIZE;
+                node_obj.offset({top:node_location_top,left:node_location_left});
+            break;
+        }
+        var sendMsg = {};
+        sendMsg.action = 'moveNode';
+        sendMsg.params = {top:node_location_top,left:node_location_left};
+        sendMessage(sendMsg);
+    }
+
+
+
+
+
+    function moveNode(obj){
+        var userId = obj.id;
+        var top = obj.params.top;
+        var left = obj.params.left;
+        var node = $('#'+userId);
+        console.debug(node.length == 0);
+        if ( node.length == 0 ){
+            home_obj.append('<div id="' + userId + '" class="node"></div>');
+        }else{
+            node.offset({top:top,left:left});
+        }
+
+        // var userid = obj.id;
+        // var top = obj.params.top;
+        // var left = obj.params.left;
+        // $('#'+userid).remove();
+        // home_obj.append('<div id="' + userid + '" class="node"></div>');
+        // $('#'+userid).offset({top:food_location_top,left:food_location_left});
+    }
+
+    function newlogin(params){
+    }
+
+
+
+    /*发送消息 封装处理*/
+    function sendMessage(data){
+        var sendMessage = JSON.stringify(data);
+        webSocket.send(sendMessage);
+    }
+
+
+    /*更新全局变量*/
+    function updateGlobalObj(){
+        /*全局变量 对象区*/
+        home_obj = $("#home");
+        node_obj = $("#" + uid);
+        food_obj = $("#food");
+    }
+
+
+</script>
+

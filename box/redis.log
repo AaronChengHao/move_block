@@ -1,0 +1,88 @@
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 3.2.3 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 9376
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+9376:M 18 Jan 10:14:23.961 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+9376:M 18 Jan 10:14:23.961 # Server started, Redis version 3.2.3
+9376:M 18 Jan 10:14:23.961 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+9376:M 18 Jan 10:14:23.961 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+9376:M 18 Jan 10:14:23.961 * The server is now ready to accept connections on port 6379
+9376:signal-handler (1484705770) Received SIGTERM scheduling shutdown...
+9376:M 18 Jan 10:16:10.886 # User requested shutdown...
+9376:M 18 Jan 10:16:10.886 * Saving the final RDB snapshot before exiting.
+9376:M 18 Jan 10:16:10.891 * DB saved on disk
+9376:M 18 Jan 10:16:10.891 * Removing the pid file.
+9376:M 18 Jan 10:16:10.891 # Redis is now ready to exit, bye bye...
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 3.2.3 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 9520
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+9520:M 18 Jan 10:16:17.151 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+9520:M 18 Jan 10:16:17.151 # Server started, Redis version 3.2.3
+9520:M 18 Jan 10:16:17.151 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+9520:M 18 Jan 10:16:17.151 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+9520:M 18 Jan 10:16:17.151 * DB loaded from disk: 0.000 seconds
+9520:M 18 Jan 10:16:17.151 * The server is now ready to accept connections on port 6379
+9520:M 18 Jan 10:31:18.012 * 1 changes in 900 seconds. Saving...
+9520:M 18 Jan 10:31:18.016 * Background saving started by pid 9539
+9539:C 18 Jan 10:31:18.044 * DB saved on disk
+9539:C 18 Jan 10:31:18.044 * RDB: 6 MB of memory used by copy-on-write
+9520:M 18 Jan 10:31:18.120 * Background saving terminated with success
+9520:M 18 Jan 10:46:19.030 * 1 changes in 900 seconds. Saving...
+9520:M 18 Jan 10:46:19.031 * Background saving started by pid 9739
+9739:C 18 Jan 10:46:19.037 * DB saved on disk
+9739:C 18 Jan 10:46:19.037 * RDB: 6 MB of memory used by copy-on-write
+9520:M 18 Jan 10:46:19.132 * Background saving terminated with success
+9520:M 18 Jan 10:55:53.274 * 10 changes in 300 seconds. Saving...
+9520:M 18 Jan 10:55:53.275 * Background saving started by pid 9743
+9743:C 18 Jan 10:55:53.284 * DB saved on disk
+9743:C 18 Jan 10:55:53.284 * RDB: 6 MB of memory used by copy-on-write
+9520:M 18 Jan 10:55:53.375 * Background saving terminated with success
+9520:M 18 Jan 11:10:54.008 * 1 changes in 900 seconds. Saving...
+9520:M 18 Jan 11:10:54.009 * Background saving started by pid 9766
+9766:C 18 Jan 11:10:54.016 * DB saved on disk
+9766:C 18 Jan 11:10:54.016 * RDB: 6 MB of memory used by copy-on-write
+9520:M 18 Jan 11:10:54.109 * Background saving terminated with success
+9520:M 18 Jan 14:11:14.101 * 1 changes in 900 seconds. Saving...
+9520:M 18 Jan 14:11:14.102 * Background saving started by pid 10062
+10062:C 18 Jan 14:11:14.110 * DB saved on disk
+10062:C 18 Jan 14:11:14.110 * RDB: 6 MB of memory used by copy-on-write
+9520:M 18 Jan 14:11:14.202 * Background saving terminated with success
+9520:M 18 Jan 15:07:18.483 * 1 changes in 900 seconds. Saving...
+9520:M 18 Jan 15:07:18.484 * Background saving started by pid 10248
+10248:C 18 Jan 15:07:18.491 * DB saved on disk
+10248:C 18 Jan 15:07:18.492 * RDB: 6 MB of memory used by copy-on-write
+9520:M 18 Jan 15:07:18.584 * Background saving terminated with success
+9520:M 18 Jan 15:12:19.008 * 10 changes in 300 seconds. Saving...
+9520:M 18 Jan 15:12:19.009 * Background saving started by pid 10263
+10263:C 18 Jan 15:12:19.016 * DB saved on disk
+10263:C 18 Jan 15:12:19.016 * RDB: 6 MB of memory used by copy-on-write
+9520:M 18 Jan 15:12:19.109 * Background saving terminated with success
