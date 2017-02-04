@@ -5,7 +5,7 @@
  * @Author: Aaron
  * @Date:   2016-11-30 15:47:43
  * @Last Modified by:   Aaron
- * @Last Modified time: 2016-12-02 09:56:09
+ * @Last Modified time: 2017-02-04 16:22:31
  */
 class XRedis
 {
@@ -18,7 +18,7 @@ class XRedis
 
     {
 
-        self::$redis = new \Predis\Client(['host' => '120.27.117.52','port' => 6379]);
+        self::$redis = new \Predis\Client(['host' => '127.0.0.1','port' => 6379]);
 
     }
 
